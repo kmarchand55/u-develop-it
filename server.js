@@ -1,11 +1,9 @@
+
 const inputCheck = require('./utils/inputCheck');
 const sqlite3 = require('sqlite3').verbose();
 const express = require('express');
 const PORT = process.env.PORT || 3001;
 const app = express();
-
-
-
 
 // Express middleware
 app.use(express.urlencoded({ extended: false }));
