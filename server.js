@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 
 // Get all candidates
 app.get('/api/candidates', (req, res) => {
-    const sql = `SELECT * FROM candidates`;
+    const sql = `SELECT CANDIDATES.*, parties.name as party_name FROM candidates Left JOIN parties on candidates.party_id=parties.id`;
     const params = [];
     db.all(sql, params, (err, rows) => {
       if (err) {
@@ -43,7 +43,7 @@ app.get('/api/candidates', (req, res) => {
 
 // Get single candidate
 app.get('/api/candidate/:id', (req, res) => {
-    const sql = `SELECT * FROM candidates 
+    const sql = `SELECT candidates.*, parties.name as party_name FROM candidates Inner Join parties on candidates.party_id = parties.id 
                  WHERE id = ?`;
     const params = [req.params.id];
     db.get(sql, params, (err, row) => {
@@ -63,17 +63,17 @@ app.get('/api/candidate/:id', (req, res) => {
 
 
 // // Create a candidate
- const sql = `INSERT INTO candidates (id, first_name, last_name, industry_connected) 
-               VALUES (?,?,?,?)`;
- const params = [1, 'Ronald', 'Firbank', 1];
+ //const sql = `INSERT INTO candidates (id, first_name, last_name, industry_connected) 
+ //              VALUES (?,?,?,?)`;
+ //const params = [1, 'Ronald', 'Firbank', 1];
 
 // ES5 function, not arrow function, to use this
- db.run(sql, params, function(err, result) {
-   if (err) {
-     console.log(err);
-   }
-   console.log(result, this.lastID);
- });
+ //db.run(sql, params, function(err, result) {
+ //  if (err) {
+ //    console.log(err);
+ //  }
+ //  console.log(result, this.lastID);
+ //});
 
  // Delete a candidate
  app.delete('/api/candidate/:id', (req, res) => {
